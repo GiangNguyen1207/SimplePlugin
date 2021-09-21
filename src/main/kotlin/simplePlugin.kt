@@ -9,7 +9,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import git4idea.repo.GitRepositoryManager
 import java.io.File
 
-class simplePlugin: AnAction() {
+class simplePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project: Project? = e.getData(PlatformDataKeys.PROJECT)
         val file: VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE)
@@ -20,18 +20,8 @@ class simplePlugin: AnAction() {
             val currentBranch = findCurrentBranch(project)
             openGithubLink(owner, project, filePath, currentBranch)
         } else {
-            Messages.showMessageDialog("There is no open project", "Error",  Messages.getErrorIcon())
+            Messages.showMessageDialog("There is no open project", "Error", Messages.getErrorIcon())
         }
-
-        //1. Project == null -> show Error
-        //2. Project != null ->
-            //a. file == null -> open git repo main page
-            //b. file != null ->
-                //aa. Find owner
-                //bb. Find file path
-                //cc. Find current branch
-                //dd. Build link
-                //ee. Open link
     }
 
     private fun findOwner(project: Project): String {
@@ -40,8 +30,9 @@ class simplePlugin: AnAction() {
 
         gitConfigFile.forEachLine {
             if (it.contains("url")) {
-                val parts = it.split(":|/".toRegex())
-                owner = parts[1]
+                owner = it.replace("//|:|@".toRegex(), "/")
+                    .substringBeforeLast("/")
+                    .substringAfterLast("/")
             }
         }
 
