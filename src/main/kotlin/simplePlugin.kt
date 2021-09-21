@@ -1,3 +1,4 @@
+import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -14,9 +15,10 @@ class simplePlugin: AnAction() {
         val file: VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE)
 
         if (project != null && file != null) {
-            findOwner(project)
-            findFilePath(project, file)
-            findCurrentBranch(project)
+            val owner = findOwner(project)
+            val filePath = findFilePath(project, file)
+            val currentBranch = findCurrentBranch(project)
+            openGithubLink(owner, project, filePath, currentBranch)
         } else {
             Messages.showMessageDialog("There is no open project", "Error",  Messages.getErrorIcon())
         }
@@ -30,7 +32,6 @@ class simplePlugin: AnAction() {
                 //cc. Find current branch
                 //dd. Build link
                 //ee. Open link
-
     }
 
     private fun findOwner(project: Project): String {
@@ -58,8 +59,13 @@ class simplePlugin: AnAction() {
         for (repository in repositories) {
             currentBranch = repository.currentBranch.toString().substringAfterLast("/")
         }
-        
+
         return currentBranch
     }
 
+    private fun openGithubLink(owner: String, project: Project, filePath: String, currentBranch: String) {
+        val fileLink = if (filePath == "") "" else "blob/$currentBranch$filePath"
+
+        BrowserUtil.browse("https://github.com/$owner/${project.name}/$fileLink")
+    }
 }
