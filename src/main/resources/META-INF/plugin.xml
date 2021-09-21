@@ -1,0 +1,19 @@
+<idea-plugin>
+    <id>org.example.SimplePlugin</id>
+    <name>Simple Tool</name>
+    <vendor email="" url="">Test</vendor>
+
+    <description>Simple Plugin to open a file on Github and to show the numbers of stars of that repo</description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij"></extensions>
+
+    <actions>
+
+        <action id="simplePlugin" class="simplePlugin" text="Open File on Github"
+                description="Open file on Github and show stars">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
