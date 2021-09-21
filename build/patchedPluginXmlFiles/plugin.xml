@@ -1,0 +1,18 @@
+<idea-plugin>
+  <version>1.0-SNAPSHOT</version>
+  <change-notes>Add change notes here.&lt;br&gt;
+      &lt;em&gt;most HTML tags may be used&lt;/em&gt;</change-notes>
+  <idea-version since-build="212.4746" until-build="212.*" />
+  <id>org.example.SimplePlugin</id>
+  <name>Simple Tool</name>
+  <vendor email="" url="">Test</vendor>
+  <description>Simple Plugin to open a file on Github and to show the numbers of stars of that repo</description>
+  <depends>com.intellij.modules.platform</depends>
+  <depends>Git4Idea</depends>
+  <extensions defaultExtensionNs="com.intellij" />
+  <actions>
+    <action id="simplePlugin" class="simplePlugin" text="Open File on Github" description="Open file on Github and show stars">
+      <add-to-group group-id="ToolsMenu" anchor="first" />
+    </action>
+  </actions>
+</idea-plugin>

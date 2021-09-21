@@ -1,0 +1,1 @@
+/Users/nguyengiang/Desktop/Metropolia/OOP/SimplePlugin/build/classes/java/main-instrumented/simplePlugin$findOwner$1.class:/Users/nguyengiang/Desktop/Metropolia/OOP/SimplePlugin/build/classes/java/main-instrumented/simplePlugin.class

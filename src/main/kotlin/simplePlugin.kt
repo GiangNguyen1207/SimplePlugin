@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
+import git4idea.repo.GitRepositoryManager
 import java.io.File
 
 class simplePlugin: AnAction() {
@@ -12,10 +13,12 @@ class simplePlugin: AnAction() {
         val project: Project? = e.getData(PlatformDataKeys.PROJECT)
         val file: VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE)
 
-        if (project != null) {
+        if (project != null && file != null) {
             findOwner(project)
+            findFilePath(project, file)
+            findCurrentBranch(project)
         } else {
-            Messages.showMessageDialog("Project is not open yet", "Error",  Messages.getErrorIcon())
+            Messages.showMessageDialog("There is no open project", "Error",  Messages.getErrorIcon())
         }
 
         //1. Project == null -> show Error
@@ -43,5 +46,20 @@ class simplePlugin: AnAction() {
 
         return owner
     }
-    
+
+    private fun findFilePath(project: Project, file: VirtualFile): String {
+        return file.path.substringAfter(project.basePath ?: "")
+    }
+
+    private fun findCurrentBranch(project: Project): String {
+        var currentBranch = "main"
+
+        val repositories = GitRepositoryManager.getInstance(project).repositories;
+        for (repository in repositories) {
+            currentBranch = repository.currentBranch.toString().substringAfterLast("/")
+        }
+        
+        return currentBranch
+    }
+
 }

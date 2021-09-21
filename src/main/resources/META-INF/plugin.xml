@@ -6,6 +6,7 @@
     <description>Simple Plugin to open a file on Github and to show the numbers of stars of that repo</description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
 
     <extensions defaultExtensionNs="com.intellij"></extensions>
 
