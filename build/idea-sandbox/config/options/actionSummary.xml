@@ -1,0 +1,22 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="OpenFile">
+      <i c="1" l="1632256808397" />
+    </e>
+    <e n="WelcomeScreen.OpenProject">
+      <i c="1" l="1632256159731" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="5" l="1632257318033" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.ToolWindowHeader$HideAction">
+      <i c="1" l="1632257078839" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.ToolWindowHeader$ShowOptionsAction">
+      <i c="1" l="1632256799161" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.ToolWindowImpl$RemoveStripeButtonAction">
+      <i c="4" l="1632257253261" />
+    </e>
+  </component>
+</application>

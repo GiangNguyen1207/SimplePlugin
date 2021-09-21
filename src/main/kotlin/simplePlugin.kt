@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -8,6 +10,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.repo.GitRepositoryManager
 import java.io.File
+import java.net.URL
 
 class simplePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
@@ -19,6 +22,7 @@ class simplePlugin : AnAction() {
             val filePath = findFilePath(project, file)
             val currentBranch = findCurrentBranch(project)
             openGithubLink(owner, project, filePath, currentBranch)
+            showStars(owner, project)
         } else {
             Messages.showMessageDialog("There is no open project", "Error", Messages.getErrorIcon())
         }
@@ -58,5 +62,13 @@ class simplePlugin : AnAction() {
         val fileLink = if (filePath == "") "" else "blob/$currentBranch$filePath"
 
         BrowserUtil.browse("https://github.com/$owner/${project.name}/$fileLink")
+    }
+
+    private fun showStars(owner: String, project: Project) {
+        val text = URL("https://api.github.com/repos/$owner/${project.name}").readText()
+        val node: JsonNode = ObjectMapper().readTree(text)
+
+        Messages.showMessageDialog("The number of stargazers is: ${node.get("stargazers_count")}",
+            "Info",  Messages.getInformationIcon())
     }
 }
