@@ -13,7 +13,7 @@ class simplePlugin: AnAction() {
         val file: VirtualFile? = e.getData(CommonDataKeys.VIRTUAL_FILE)
 
         if (project != null) {
-            readFile(project)
+            findOwner(project)
         } else {
             Messages.showMessageDialog("Project is not open yet", "Error",  Messages.getErrorIcon())
         }
@@ -30,22 +30,18 @@ class simplePlugin: AnAction() {
 
     }
 
-    private fun readFile(project: Project) {
+    private fun findOwner(project: Project): String {
+        var owner = ""
         val gitConfigFile = File(project.basePath + "/.git/config")
 
         gitConfigFile.forEachLine {
-            findOwner(it)
+            if (it.contains("url")) {
+                val parts = it.split(":|/".toRegex())
+                owner = parts[1]
+            }
         }
 
-    }
-
-    private fun findOwner(line: String): String {
-        var owner = ""
-        if (line.contains("url")) {
-            val parts = line.split(":|/".toRegex())
-            owner = parts[1]
-        }
-        
         return owner
     }
+    
 }
