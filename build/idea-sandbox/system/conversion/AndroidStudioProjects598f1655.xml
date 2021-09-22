@@ -1,0 +1,12 @@
+<conversion>
+  <applied-converters>
+    <converter id="kotlin-non-jvm-source-roots" />
+  </applied-converters>
+  <project-files>
+    <f p="./.idea/modules.xml" t="1621496463" />
+    <f p="./.idea/runConfigurations.xml" t="1632288820" />
+    <f p="./.idea/workspace.xml" t="1632288820" />
+    <f p="./.idea/vcs.xml" t="1621496463" />
+    <f p="./.idea/AndroidStudioProjects.iml" t="1621496463" />
+  </project-files>
+</conversion>

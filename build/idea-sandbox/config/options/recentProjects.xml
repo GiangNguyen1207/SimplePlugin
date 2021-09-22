@@ -14,6 +14,29 @@
             </RecentProjectMetaInfo>
           </value>
         </entry>
+        <entry key="$USER_HOME$/Documents/AndroidStudioProjects">
+          <value>
+            <RecentProjectMetaInfo frameTitle="AndroidStudioProjects" projectWorkspaceId="1ocpxjKuvBhjb8bHXnnwUZ6CmsI">
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="build" value="IC-212.4746.92" />
+              <option name="buildTimestamp" value="1627369721201" />
+              <frame x="1442" y="25" width="889" height="961" />
+              <option name="productionCode" value="IC" />
+              <option name="projectOpenTimestamp" value="1632288792948" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Documents/AndroidStudioProjects/lab04">
+          <value>
+            <RecentProjectMetaInfo opened="true" projectWorkspaceId="1oD2HqaI1YL8zxHssrwk9LnNc0t">
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="build" value="IC-212.4746.92" />
+              <option name="buildTimestamp" value="1627369721201" />
+              <option name="productionCode" value="IC" />
+              <option name="projectOpenTimestamp" value="1632288821989" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

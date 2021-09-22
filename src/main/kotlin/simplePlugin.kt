@@ -28,24 +28,28 @@ class simplePlugin : AnAction() {
         }
     }
 
-    private fun findOwner(project: Project): String {
-        var owner = ""
+    private fun findOwner(project: Project): String? {
+        var owner: String? = null
+
         val gitConfigFile = File(project.basePath + "/.git/config")
 
-        gitConfigFile.forEachLine {
-            if (it.contains("url")) {
-                owner = it.replace("//|:|@".toRegex(), "/")
-                    .substringBeforeLast("/")
-                    .substringAfterLast("/")
+        if (gitConfigFile.exists()) {
+            gitConfigFile.forEachLine {
+                if (it.contains("url")) {
+                    owner = it.replace(":", "/")
+                        .substringBeforeLast("/")
+                        .substringAfterLast("/")
+                }
             }
+        } else {
+            Messages.showMessageDialog("Not a git repo", "Error", Messages.getErrorIcon())
         }
 
         return owner
     }
 
-    private fun findFilePath(project: Project, file: VirtualFile): String {
-        return file.path.substringAfter(project.basePath ?: "")
-    }
+    private fun findFilePath(project: Project, file: VirtualFile) =
+        file.path.substringAfter(project.basePath ?: "")
 
     private fun findCurrentBranch(project: Project): String {
         var currentBranch = "main"
@@ -58,17 +62,21 @@ class simplePlugin : AnAction() {
         return currentBranch
     }
 
-    private fun openGithubLink(owner: String, project: Project, filePath: String, currentBranch: String) {
+    private fun openGithubLink(owner: String?, project: Project, filePath: String, currentBranch: String) {
         val fileLink = if (filePath == "") "" else "blob/$currentBranch$filePath"
 
-        BrowserUtil.browse("https://github.com/$owner/${project.name}/$fileLink")
+        if (owner != null) {
+            BrowserUtil.browse("https://github.com/$owner/${project.name}/$fileLink")
+        }
     }
 
-    private fun showStars(owner: String, project: Project) {
+    private fun showStars(owner: String?, project: Project) {
         val text = URL("https://api.github.com/repos/$owner/${project.name}").readText()
         val node: JsonNode = ObjectMapper().readTree(text)
 
-        Messages.showMessageDialog("The number of stargazers is: ${node.get("stargazers_count")}",
-            "Info",  Messages.getInformationIcon())
+        Messages.showMessageDialog(
+            "The number of stargazers is: ${node.get("stargazers_count")}",
+            "Info", Messages.getInformationIcon()
+        )
     }
 }
